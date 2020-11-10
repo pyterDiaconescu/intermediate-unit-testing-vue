@@ -9,6 +9,7 @@ describe('AppHeader', () => {
 
   test('If user is logged in, show logout button', () => {
     const wrapper = mount(AppHeader)
+    wrapper.setData({loggedIn: true})
     expect(wrapper.find('button').isVisible()).toBe(true)
   })
 })
