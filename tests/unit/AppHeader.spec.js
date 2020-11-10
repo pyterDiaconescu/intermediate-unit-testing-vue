@@ -7,9 +7,12 @@ describe('AppHeader', () => {
     expect(wrapper.find('button').isVisible()).toBe(false)
   })
 
-  test('If user is logged in, show logout button', () => {
+  test('If user is logged in, show logout button', async () => {
     const wrapper = mount(AppHeader)
     wrapper.setData({loggedIn: true})
+
+    // await DOM to update before moving on to the assertion
+    await wrapper.vm.$nextTick()
     expect(wrapper.find('button').isVisible()).toBe(true)
   })
 })
