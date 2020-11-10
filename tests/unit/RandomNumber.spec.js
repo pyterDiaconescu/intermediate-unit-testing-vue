@@ -16,7 +16,19 @@ describe('RandomNumber', () => {
     expect(randomNumber).toBeGreaterThanOrEqual(1)
     expect(randomNumber).toBeLessThanOrEqual(10)
   })
-  test('If button is clicked, randomNumber data value should be between 200 an nd 300', () => {
-    expect(true).toBe(false)
+  test('If button is clicked, randomNumber data value should be between 200 an nd 300', async () => {
+    const wrapper = mount(RandomNumber, {
+      propsData: {
+        min: 200,
+        max: 300
+      }
+    })
+    wrapper.find('button').trigger('click')
+
+    // Wait for any reactivity changes to appear in the DOM
+    await wrapper.vm.$nextTick()
+    const randomNumber = parseInt(wrapper.find('span').element.textContent)
+    expect(randomNumber).toBeGreaterThanOrEqual(200)
+    expect(randomNumber).toBeLessThanOrEqual(300)
   })
 })
