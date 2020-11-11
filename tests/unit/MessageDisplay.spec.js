@@ -22,9 +22,15 @@ describe('MessageDisplay', () => {
 
   it('Displays an error when getMessage call fails', async () => {
     // mock the failed API call
+    const mockError = 'Oops! Something went wrong.'
+    getMessage.mockRejectedValueOnce(mockError)
     const wrapper = mount(MessageDisplay)
     // wait for promise to resolve
+    await flushPromises()
     // check that call happened once
+    expect(getMessage).toHaveBeenCalledTimes(1)
     // check that component displays error
+    const error = wrapper.find('[data-testid="message-error"]').element.textContent
+    expect(error).toEqual(mockError)
   })
 })
